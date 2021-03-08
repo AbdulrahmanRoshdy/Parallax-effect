@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel to the Space</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- You need to open the code in the live server mode to enable the animations -->
+
+    <a id="to-top" onclick="topFunction()">
+        <img src="assets/to-top.png" alt="to-top-button">
+    </a>
+
+    <section id="section1">
+        <img src="assets/background.jpg" id="bg" alt="background.jpg">
+        <img src="assets/moon.png" id="moon" alt="moon.png">
+        <img src="assets/buildings.png" id="buildings" alt="buildings.png">
+        <img src="assets/roads.png" id="roads" alt="roads.png">
+        <h2 id="text">Travel to the Space</h2>
+        <br>
+        <a class="btn-smart" href="#section2">Discover More<span></span></a>
+    </section>
+
+    <section id="section2">
+        <div class="section2-container">
+            <h1>The Universe is waiting</h1>
+            <h2>Humans are driven to explore the unknown, discover new worlds, push the boundaries of our scientific and
+                technical limits, and then push further. The intangible desire to explore and challenge the boundaries
+                of
+                what we know and where we have been has provided benefits to our society for centuries.</h2>
+            <h1>What is the point of space exploration ?</h1>
+            <h2>1- Fundamental </h2>
+            <h3>Address fundamental questions about our place in the Universe and the history of our solar system</h3>
+            <h2>2- R&D </h2>
+            <h3>Advancing scientific research which can help to develop new technologies for our benefit</h3>
+            <h2>3- Future </h2>
+            <h3>Ensuring the future survival of humanity and expand our resources base</h3>
+            <div style="position: relative; margin-bottom: 300px;">
+                <lottie-player src="assets/rocket.json" background="transparent" speed="1" id="rocket"
+                    style="width: 300px; height: 300px; position: relative; float: right;">
+                </lottie-player>
+            </div>
+        </div>
+    </section>
+
+    <section id="section3">
+        <div class="container hover-right">
+            <div class="split left">
+                <h1 class="section3-text">March</h1>
+                <a href="#" class="year">Travel by 2030</a>
+            </div>
+            <div class="split right">
+                <h1 class="section3-text">Moon</h1>
+                <a href="#" class="year">Travel by 2024</a>
+            </div>
+        </div>
+    </section>
+
+    <script type="text/javascript">
+        mybutton = document.getElementById("to-top");
+
+        // When the user scrolls down 20px from the top of the document, show the button
+        function scrollFunction() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                mybutton.style.display = "block";
+            } else {
+                mybutton.style.display = "none";
+            }
+        }
+
+        // When the user clicks on the button, scroll to the top of the document
+        function topFunction() {
+            document.documentElement.scrollTop = 0;
+        }
+
+        // Play animation when reach it && check on top button visibilty && Adding scrolling effect
+        let rocket = document.getElementById('rocket');
+        let canStart = false;
+        window.addEventListener("scroll", () => {
+
+            var value = window.scrollY;
+
+            // Adding scrolling effect on first section
+            document.getElementById('bg').style.top = value * 0.5 + 'px';
+            document.getElementById('moon').style.left = -value * 0.5 + 'px';
+            document.getElementById('buildings').style.top = -value * 0.15 + 'px';
+            document.getElementById('roads').style.top = value * 0.15 + 'px';
+            document.getElementById('text').style.top = value * 1 + 'px';
+
+            // check on top button visibilty
+            scrollFunction();
+
+            // Play animation
+            value > 1150 && value < 1500 ? canStart = true : canStart = false;
+            if (canStart) {
+                rocket.play()
+                canStart = false;
+            }
+        });
+
+
+        // Toggle between left and right side third section
+        const left = document.querySelector(".left");
+        const right = document.querySelector(".right");
+        const container = document.querySelector(".container");
+
+        left.addEventListener("mouseenter", () => {
+            container.classList.add("hover-left");
+        });
+
+        left.addEventListener("mouseleave", () => {
+            container.classList.remove("hover-left");
+        });
+
+        right.addEventListener("mouseenter", () => {
+            container.classList.add("hover-right");
+        });
+
+        right.addEventListener("mouseleave", () => {
+            container.classList.remove("hover-right");
+        });
+
+
+        // Loop over all smart buttons to apply effect on them
+        (function () {
+            const buttons = document.querySelectorAll(".btn-smart");
+
+            buttons.forEach(button => {
+                ["mouseenter", "mouseout"].forEach(evt => {
+                    button.addEventListener(evt, e => {
+                        let parentOffset = button.getBoundingClientRect(),
+                            relX = e.pageX - parentOffset.left,
+                            relY = e.pageY - parentOffset.top;
+
+                        const span = button.getElementsByTagName("span");
+
+                        span[0].style.top = relY + "px";
+                        span[0].style.left = relX + "px";
+                    });
+                });
+            });
+        })();
+    </script>
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+</body>
+
+</html>
